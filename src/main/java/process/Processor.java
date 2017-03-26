@@ -24,11 +24,6 @@ public class Processor {
         return groupedUniqueElements;
     }
 
-    public Processor(TripleLong tripleLong) {
-        uniqueElementsGroup = new Group(tripleLong);
-        groupedUniqueElements = new GroupedUniqueElements();
-    }
-
     public void add(TripleLong tripleLong){
         if (!uniqueElementsGroup.isUnique(tripleLong)){
             if (!uniqueElementsGroup.isAlreadyContains(tripleLong)) {
@@ -44,7 +39,7 @@ public class Processor {
             //Трипллонг уникален для группы уникальных элементов.
             //Проверить наличие трипллонга в списках сгруппированных уникальных элементов.
             if (groupedUniqueElements.isUnique(tripleLong)){
-                // Трипллонг полностью уникален. Записать трипллонг в группу уникальных элементов
+                // Трипллонг полностью уникален. Записать трипллонг в группу уникальных элементов.
                 uniqueElementsGroup.add(tripleLong);
             }
             else
