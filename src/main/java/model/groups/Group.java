@@ -16,7 +16,7 @@ public class Group extends AbstractGroup {
     public Group(TripleLong tripleLong) {
         super(tripleLong);
         tripleLongArrayList = new TripleLongArrayList();
-        tripleLongArrayList.Add(tripleLong);
+        tripleLongArrayList.add(tripleLong);
     }
 
     public Group(TripleLongHashSet tlhs, TripleLongArrayList tripleLongArrayList) {
@@ -28,41 +28,41 @@ public class Group extends AbstractGroup {
         return tripleLongArrayList;
     }
 
-    public void Add(TripleLong tripleLong) {
-        super.AddToTripledSet(tripleLong);
-        tripleLongArrayList.Add(tripleLong);
+    public void add(TripleLong tripleLong) {
+        super.addToTripledSet(tripleLong);
+        tripleLongArrayList.add(tripleLong);
     }
 
-    public void Add(Group group) {
-        super.AddToTripledSet(group.getTripleLongHashSet());
-        tripleLongArrayList.Add(group.getTripleLongArrayList());
+    public void add(Group group) {
+        super.addToTripledSet(group.getTripleLongHashSet());
+        tripleLongArrayList.add(group.getTripleLongArrayList());
     }
 
-    public Group GetGroupAndRemove(TripleLong tripleLong) {
+    public Group getGroupAndRemove(TripleLong tripleLong) {
         TripleLongHashSet tripleLongHashSet = new TripleLongHashSet(tripleLong);
         TripleLongArrayList tripleLongArrayList = new TripleLongArrayList(tripleLong);
         Long a = tripleLong.getA();
         Long b = tripleLong.getB();
         Long c = tripleLong.getC();
-        if (ContainsByA(a)){
-            TripleLong tl = this.tripleLongArrayList.RemoveRowByAValue(a);
-            getTripleLongHashSet().Remove(tl);
-            tripleLongHashSet.Add(tl);
-            tripleLongArrayList.Add(tl);
+        if (containsByA(a)){
+            TripleLong tl = this.tripleLongArrayList.removeRowByAValue(a);
+            getTripleLongHashSet().remove(tl);
+            tripleLongHashSet.add(tl);
+            tripleLongArrayList.add(tl);
         }
-        if (ContainsByB(b)){
-            TripleLong tl = this.tripleLongArrayList.RemoveRowByBValue(b);
-            getTripleLongHashSet().Remove(tl);
-            tripleLongHashSet.Add(tl);
-            tripleLongArrayList.Add(tl);
+        if (containsByB(b)){
+            TripleLong tl = this.tripleLongArrayList.removeRowByBValue(b);
+            getTripleLongHashSet().remove(tl);
+            tripleLongHashSet.add(tl);
+            tripleLongArrayList.add(tl);
         }
-        if (ContainsByC(c)){
-            TripleLong tl = this.tripleLongArrayList.RemoveRowByCValue(c);
-            getTripleLongHashSet().Remove(tl);
-            tripleLongHashSet.Add(tl);
-            tripleLongArrayList.Add(tl);
+        if (containsByC(c)){
+            TripleLong tl = this.tripleLongArrayList.removeRowByCValue(c);
+            getTripleLongHashSet().remove(tl);
+            tripleLongHashSet.add(tl);
+            tripleLongArrayList.add(tl);
         }
-        RemoveFromTripeledSet(tripleLong);
+        removeFromTripledSet(tripleLong);
         return new Group(tripleLongHashSet,tripleLongArrayList);
     }
 }

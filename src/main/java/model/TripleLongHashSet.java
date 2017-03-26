@@ -22,16 +22,16 @@ public class TripleLongHashSet {
         aLongSet = new HashSet<>();
         bLongSet = new HashSet<>();
         cLongSet = new HashSet<>();
-        Add(tl.getA(), tl.getB(), tl.getC());
+        add(tl.getA(), tl.getB(), tl.getC());
     }
 
-    public void Merge(TripleLongHashSet tlhs){
+    public void merge(TripleLongHashSet tlhs){
         aLongSet.addAll(tlhs.aLongSet);
         bLongSet.addAll(tlhs.bLongSet);
         cLongSet.addAll(tlhs.cLongSet);
     }
 
-    public void Add(Long a, Long b, Long c){
+    public void add(Long a, Long b, Long c){
         if (a != 0L)
             aLongSet.add(a);
         if (b != 0L)
@@ -40,7 +40,7 @@ public class TripleLongHashSet {
             cLongSet.add(c);
     }
 
-    public void Add(TripleLong tripleLong){
+    public void add(TripleLong tripleLong){
         Long a = tripleLong.getA();
         Long b = tripleLong.getB();
         Long c = tripleLong.getC();
@@ -52,7 +52,7 @@ public class TripleLongHashSet {
             cLongSet.add(c);
     }
 
-    public boolean Remove(Long a, Long b, Long c){
+    public boolean remove(Long a, Long b, Long c){
         boolean remA=false,remB=false,remC=false;
         if (aLongSet.contains(a)){
             aLongSet.remove(a);
@@ -69,23 +69,23 @@ public class TripleLongHashSet {
         return (remA || remB || remC);
     }
 
-    public boolean ContainsByA (Long a){
+    public boolean containsByA(Long a){
         return aLongSet.contains(a);
     }
 
-    public boolean ContainsByB (Long b){
+    public boolean containsByB(Long b){
         return bLongSet.contains(b);
     }
 
-    public boolean ContainsByC (Long c){
+    public boolean containsByC(Long c){
         return cLongSet.contains(c);
     }
 
-    public boolean Remove(TripleLong tripleLong){
-        return Remove(tripleLong.getA(), tripleLong.getB(), tripleLong.getC());
+    public boolean remove(TripleLong tripleLong){
+        return remove(tripleLong.getA(), tripleLong.getB(), tripleLong.getC());
     }
 
-    public boolean IsRetain(TripleLongHashSet tripleLongHashSet){
+    public boolean isRetain(TripleLongHashSet tripleLongHashSet){
         HashSet<Long> aclone = new HashSet<>(aLongSet);
         aclone.retainAll(tripleLongHashSet.aLongSet);
         if (aclone.size()> 0)

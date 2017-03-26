@@ -16,60 +16,60 @@ public abstract class AbstractGroup {
 
     public AbstractGroup(TripleLong tripleLong) {
         tripleLongHashSet = new TripleLongHashSet();
-        tripleLongHashSet.Add(tripleLong);
+        tripleLongHashSet.add(tripleLong);
     }
 
     public AbstractGroup(TripleLongHashSet tlhs) {
         tripleLongHashSet = new TripleLongHashSet();
-        tripleLongHashSet.Merge(tlhs);
+        tripleLongHashSet.merge(tlhs);
     }
 
     public TripleLongHashSet getTripleLongHashSet() {
         return tripleLongHashSet;
     }
 
-    public boolean IsUnique(TripleLong tripleLong) {
+    public boolean isUnique(TripleLong tripleLong) {
         Long a = tripleLong.getA();
         Long b = tripleLong.getB();
         Long c = tripleLong.getC();
-        if (a != 0l && tripleLongHashSet.ContainsByA(a))
+        if (a != 0l && tripleLongHashSet.containsByA(a))
             return false;
-        if (b != 0l && tripleLongHashSet.ContainsByB(b))
+        if (b != 0l && tripleLongHashSet.containsByB(b))
             return false;
-        if (c != 0l && tripleLongHashSet.ContainsByC(c))
+        if (c != 0l && tripleLongHashSet.containsByC(c))
             return false;
         return true;
     }
 
-    public boolean IsIntersect(AbstractGroup group) {
+    public boolean isIntersect(AbstractGroup group) {
         TripleLongHashSet tripleLongHashSet = group.tripleLongHashSet;
-        if (this.tripleLongHashSet.IsRetain(tripleLongHashSet))
+        if (this.tripleLongHashSet.isRetain(tripleLongHashSet))
             return true;
         return false;
     }
 
-    public void AddToTripledSet(TripleLong tripleLong){
-        tripleLongHashSet.Add(tripleLong);
+    public void addToTripledSet(TripleLong tripleLong){
+        tripleLongHashSet.add(tripleLong);
     }
 
-    public void AddToTripledSet(TripleLongHashSet tl){
-        tripleLongHashSet.Merge(tl);
+    public void addToTripledSet(TripleLongHashSet tl){
+        tripleLongHashSet.merge(tl);
     }
 
-    public boolean RemoveFromTripeledSet(TripleLong tripleLong){
-        return tripleLongHashSet.Remove(tripleLong);
+    public boolean removeFromTripledSet(TripleLong tripleLong){
+        return tripleLongHashSet.remove(tripleLong);
     }
 
-    public boolean ContainsByA(Long a){
-        return tripleLongHashSet.ContainsByA(a);
+    public boolean containsByA(Long a){
+        return tripleLongHashSet.containsByA(a);
     }
 
-    public boolean ContainsByB(Long b){
-        return tripleLongHashSet.ContainsByB(b);
+    public boolean containsByB(Long b){
+        return tripleLongHashSet.containsByB(b);
     }
 
-    public boolean ContainsByC(Long c){
-        return tripleLongHashSet.ContainsByC(c);
+    public boolean containsByC(Long c){
+        return tripleLongHashSet.containsByC(c);
     }
 
 

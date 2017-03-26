@@ -2,59 +2,55 @@ package process;
 
 import model.TripleLong;
 import model.groups.Group;
-import model.groups.ListOfGroupedElements;
+import model.groups.GroupedUniqueElements;
 
 public class Processor {
 
+    //Группа уникальных элементов.
     private Group uniqueElementsGroup;
-
-    private ListOfGroupedElements listOfGroupedElements;
+    //Список сгруппированных уникальных элементов.
+    private GroupedUniqueElements groupedUniqueElements;
 
     public Processor() {
         uniqueElementsGroup = new Group();
-        listOfGroupedElements = new ListOfGroupedElements();
+        groupedUniqueElements = new GroupedUniqueElements();
     }
 
-    public ListOfGroupedElements getListOfGroupedElements() {
-        return listOfGroupedElements;
+    public Group getUniqueElementsGroup() {
+        return uniqueElementsGroup;
+    }
+
+    public GroupedUniqueElements getGroupedUniqueElements() {
+        return groupedUniqueElements;
     }
 
     public Processor(TripleLong tripleLong) {
         uniqueElementsGroup = new Group(tripleLong);
-        listOfGroupedElements = new ListOfGroupedElements();
+        groupedUniqueElements = new GroupedUniqueElements();
     }
 
-    public void Add(TripleLong tripleLong){
-        if (!uniqueElementsGroup.IsUnique(tripleLong)){
-            //Трипллонг неуникален для первого списка. Сформировать группу и отправить на проверку в глубокую группу.
-            Group removed = uniqueElementsGroup.GetGroupAndRemove(tripleLong);
-            if (listOfGroupedElements.getGroups().size()==0)
-                listOfGroupedElements.AddGroup(removed);
-            else
-            {
-                //Проверить наличие группы во второых списках
-                if (listOfGroupedElements.IsUnique(removed)){
-                    //Группа уникальна в первом списке и уникальна для глубоких списков. Добавить группу во вторые списки
-                    listOfGroupedElements.AddGroup(removed);
-                }
-                else {
-                    //группа уникальна в первом списке, но неуникален для глубоких списков. Мержить группы по мере поиска
-                    listOfGroupedElements.Merge(removed);
-                }
-            }
-
+    public void add(TripleLong tripleLong){
+        if (!uniqueElementsGroup.isUnique(tripleLong)){
+            //Трипллонг неуникален для группы уникальных элементов.
+            //Сформировать группу и добавить (при необходимости, смерживая группы на ходу)
+            //в список сгруппированных уникальных элементов.
+            Group removed = uniqueElementsGroup.getGroupAndRemove(tripleLong);
+            groupedUniqueElements.checkAndAddGroup(removed);
         }
         else
         {
-            //Трипллонг уникален в первом списке, проверить наличие трипллонга во второых списках
-            if (listOfGroupedElements.IsUnique(tripleLong)){
-                // Трипллонг уникален для всего вычисления. Записать трипллонг в группу уникальных трипллонгов
-                uniqueElementsGroup.Add(tripleLong);
+            //Трипллонг уникален для группы уникальных элементов.
+            //Проверить наличие трипллонга в списках сгруппированных уникальных элементов.
+            if (groupedUniqueElements.isUnique(tripleLong)){
+                // Трипллонг полностью уникален. Записать трипллонг в группу уникальных элементов
+                uniqueElementsGroup.add(tripleLong);
             }
             else
             {
-                //Трипллонг уникален в первом списке, но неуникален для глубоких списков. Мержить группы по мере поиска
-                listOfGroupedElements.Merge(tripleLong);
+                //Трипллонг уникален для группы уникальных элементов.
+                //Но неуникален для списка сгруппированных уникальных элементов.
+                //Мержить группы по мере поиска
+                groupedUniqueElements.merge(tripleLong);
             }
         }
     }

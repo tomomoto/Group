@@ -8,13 +8,13 @@ import java.util.ArrayList;
 /**
  * Created by Tom on 24.03.2017.
  */
-public class ListOfGroupedElements {
+public class GroupedUniqueElements {
 
     private ArrayList<Group> groups;
 
     private TripleLongHashSet tripleLongHashSet;
 
-    public ListOfGroupedElements() {
+    public GroupedUniqueElements() {
         groups = new ArrayList<>();
         tripleLongHashSet = new TripleLongHashSet();
     }
@@ -23,39 +23,46 @@ public class ListOfGroupedElements {
         return groups;
     }
 
-    public boolean IsUnique (TripleLong tripleLong){
-        if (tripleLongHashSet.ContainsByA(tripleLong.getA()))
+    public boolean isUnique(TripleLong tripleLong){
+        if (tripleLongHashSet.containsByA(tripleLong.getA()))
             return false;
-        if (tripleLongHashSet.ContainsByB(tripleLong.getB()))
+        if (tripleLongHashSet.containsByB(tripleLong.getB()))
             return false;
-        if (tripleLongHashSet.ContainsByC(tripleLong.getC()))
+        if (tripleLongHashSet.containsByC(tripleLong.getC()))
             return false;
         return true;
     }
 
-    public boolean IsUnique (Group group){
-        return !tripleLongHashSet.IsRetain(group.getTripleLongHashSet());
+    public boolean checkAndAddGroup(Group group) {
+        //Проверить наличие группы в списках групп на пересечение множеств
+        if (groups.size() == 0 || !tripleLongHashSet.isRetain(group.getTripleLongHashSet()))
+        {
+            //Группа уникальна для списков. Добавить группу во списки
+            //listOfGroupedElements.AddGroup(removed);
+            tripleLongHashSet.merge(group.getTripleLongHashSet());
+            return groups.add(group);
+        }
+        else {
+            //Группа неуникальна для списков. Мержить группы по мере поиска
+            merge(group);
+            return true;
+        }
     }
 
-    public boolean AddGroup(Group group) {
-        tripleLongHashSet.Merge(group.getTripleLongHashSet());
-        return groups.add(group);
-    }
-
-    public void Merge(TripleLong tripleLong){
+    public void merge(TripleLong tripleLong){
         ArrayList<Integer> mergingIndexList = new ArrayList<>();
         boolean listsAlreadyMerged=false;
         int removedGroups = 0;
         for (int i = 0; i < groups.size(); i++) {
-            if (!groups.get(i - removedGroups).IsUnique(tripleLong)) {
+            if (!groups.get(i - removedGroups).isUnique(tripleLong)) {
                 mergingIndexList.add(i - removedGroups);
                 if (!listsAlreadyMerged){
-                    groups.get(mergingIndexList.get(0)).Add(tripleLong);
+                    groups.get(mergingIndexList.get(0)).add(tripleLong);
                     listsAlreadyMerged=true;
                 }
                 if (mergingIndexList.size() == 2) {
                     //System.out.println("Merging triplelong");
-                    groups.get(mergingIndexList.get(0)).Add(groups.get(mergingIndexList.get(1)));
+                    groups.get(mergingIndexList.get(0)).add(groups.get(mergingIndexList.get(1)));
                     mergingIndexList.remove(1);
                     groups.remove(i - removedGroups);
                     removedGroups++;
@@ -64,20 +71,20 @@ public class ListOfGroupedElements {
         }
     }
 
-    public void Merge(Group group){
+    private void merge(Group group){
         ArrayList<Integer> mergingIndexList = new ArrayList<>();
         boolean listsAlreadyMerged=false;
         int removedGroups = 0;
         for (int i = 0; i < groups.size(); i++) {
-            if (groups.get(i - removedGroups).IsIntersect(group)) {
+            if (groups.get(i - removedGroups).isIntersect(group)) {
                 mergingIndexList.add(i - removedGroups);
                 if (!listsAlreadyMerged){
-                    groups.get(mergingIndexList.get(0)).Add(group);
+                    groups.get(mergingIndexList.get(0)).add(group);
                     listsAlreadyMerged=true;
                 }
                 if (mergingIndexList.size() == 2) {
                     //System.out.println("Merging groups");
-                    groups.get(mergingIndexList.get(0)).Add(groups.get(mergingIndexList.get(1)));
+                    groups.get(mergingIndexList.get(0)).add(groups.get(mergingIndexList.get(1)));
                     mergingIndexList.remove(1);
                     groups.remove(i - removedGroups);
                     removedGroups++;

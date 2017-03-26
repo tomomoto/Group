@@ -22,13 +22,13 @@ public class GroupTest {
         Processor cmp = new Processor(new TripleLong(1l, 2l, 3l));
         int i = 0;
         TripleLong tpl2 = new TripleLong(4l, 4l, 3l);
-        cmp.Add(tpl2);
+        cmp.add(tpl2);
         TripleLong tpl3 = new TripleLong(5l, 6l, 7l);
-        cmp.Add(tpl3);
+        cmp.add(tpl3);
         TripleLong tpl4 = new TripleLong(8l, 8l, 7l);
-        cmp.Add(tpl4);
+        cmp.add(tpl4);
         TripleLong tp5 = new TripleLong(9l, 6l, 3l);
-        cmp.Add(tp5);
+        cmp.add(tp5);
         try {
             while ((nextLine = reader.readNext()) != null) {
                 if (i == 621218) {
@@ -93,15 +93,15 @@ public class GroupTest {
                     c=0l;
                 }*/
                 TripleLong trpLng = new TripleLong(a, b, c);
-                cmp.Add(trpLng);
+                cmp.add(trpLng);
                 i++;
                 System.out.println(i);
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Collections.sort(cmp.getListOfGroupedElements().getGroups(),
-                (o1, o2) -> o2.getTripleLongArrayList().Size() - o1.getTripleLongArrayList().Size());
+        Collections.sort(cmp.getGroupedUniqueElements().getGroups(),
+                (o1, o2) -> o2.getTripleLongArrayList().size() - o1.getTripleLongArrayList().size());
         long finish = System.currentTimeMillis();
         float timeConsumedSec = (finish - start) / 1000F;
         System.out.println("Execution time: " + timeConsumedSec + " seconds");

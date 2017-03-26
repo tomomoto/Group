@@ -18,34 +18,34 @@ public class TripleLongArrayList {
         aLongArray = new ArrayList<>();
         bLongArray = new ArrayList<>();
         cLongArray = new ArrayList<>();
-        Add(tripleLong);
+        add(tripleLong);
     }
 
-    public TripleLong Get(int index){
+    public TripleLong get(int index){
         return new TripleLong(aLongArray.get(index), bLongArray.get(index), cLongArray.get(index));
     }
 
-    public boolean Add(TripleLong tripleLong){
+    public boolean add(TripleLong tripleLong){
         boolean add = aLongArray.add(tripleLong.getA());
         boolean add1 = bLongArray.add(tripleLong.getB());
         boolean add2 = cLongArray.add(tripleLong.getC());
         return (add || add1 || add2);
     }
 
-    public boolean Add(TripleLongArrayList tripleLongArrayList){
+    public boolean add(TripleLongArrayList tripleLongArrayList){
         boolean add = aLongArray.addAll(tripleLongArrayList.aLongArray);
         boolean add1 = bLongArray.addAll(tripleLongArrayList.bLongArray);
         boolean add2 = cLongArray.addAll(tripleLongArrayList.cLongArray);
         return (add || add1 || add2);
     }
 
-    public void Remove(int index){
+    public void remove(int index){
         aLongArray.remove(index);
         bLongArray.remove(index);
         cLongArray.remove(index);
     }
 
-    public int Size() {
+    public int size() {
         int asize = aLongArray.size();
         int bsize = bLongArray.size();
         int csize = cLongArray.size();
@@ -55,24 +55,24 @@ public class TripleLongArrayList {
             return 0;
     }
 
-    public TripleLong RemoveRowByAValue(Long value) {
+    public TripleLong removeRowByAValue(Long value) {
         int i = aLongArray.indexOf(value);
-        TripleLong tripleLong = Get(i);
-        Remove(i);
+        TripleLong tripleLong = get(i);
+        remove(i);
         return tripleLong;
     }
 
-    public TripleLong RemoveRowByBValue(Long value) {
+    public TripleLong removeRowByBValue(Long value) {
         int i = bLongArray.indexOf(value);
-        TripleLong tripleLong = Get(i);
-        Remove(i);
+        TripleLong tripleLong = get(i);
+        remove(i);
         return tripleLong;
     }
 
-    public TripleLong RemoveRowByCValue(Long value) {
+    public TripleLong removeRowByCValue(Long value) {
         int i = cLongArray.indexOf(value);
-        TripleLong tripleLong = Get(i);
-        Remove(i);
+        TripleLong tripleLong = get(i);
+        remove(i);
         return tripleLong;
     }
 }
