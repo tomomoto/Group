@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class SmallParser {
 
-    public static TripleLong parse(String stringToParse) throws Exception {
+    public static TripleLong parse(String stringToParse) throws InvalidStringException {
         String line = stringToParse.replaceAll("\"", "");
         int count = StringUtils.countMatches(line, ";");
         List<String> items = new ArrayList<>();
@@ -33,44 +33,44 @@ public class SmallParser {
                     break;
             }
         }
-        Long a, b, c;
+        Long a=null, b=null, c=null;
         if (items.size() == 3) {
             String s1 = items.get(0);
             String s2 = items.get(1);
             String s3 = items.get(2);
 
-            if (s1.equals(""))
-                a = 0l;
+            if (s1.equals("")){}
+                //a = 0l;
             else {
                 try {
                     a = Long.valueOf(s1);
                 } catch (Exception e) {
-                    throw new Exception("Invalid string: { " + line+" }");
+                    throw new InvalidStringException(line);
                 }
             }
 
-            if (s2.equals(""))
-                b = 0l;
+            if (s2.equals("")){}
+                //b = 0l;
             else {
                 try {
                     b = Long.valueOf(s2);
                 } catch (Exception e) {
-                    throw new Exception("Invalid string: { " + line+" }");
+                    throw new InvalidStringException(line);
                 }
             }
 
-            if (s3.equals(""))
-                c = 0l;
+            if (s3.equals("")){}
+                //c = 0l;
             else {
                 try {
                     c = Long.valueOf(s3);
                 } catch (Exception e) {
-                    throw new Exception("Invalid string: { " + line+" }");
+                    throw new InvalidStringException(line);
                 }
             }
             return new TripleLong(a, b, c);
         } else
-            throw new Exception("Invalid string: { " + line+" }");
+            throw new InvalidStringException(line);
     }
 
 }

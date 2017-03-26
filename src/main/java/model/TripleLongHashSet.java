@@ -25,18 +25,18 @@ public class TripleLongHashSet {
         add(tl.getA(), tl.getB(), tl.getC());
     }
 
-    public void merge(TripleLongHashSet tlhs){
+    public void add(TripleLongHashSet tlhs){
         aLongSet.addAll(tlhs.aLongSet);
         bLongSet.addAll(tlhs.bLongSet);
         cLongSet.addAll(tlhs.cLongSet);
     }
 
     public void add(Long a, Long b, Long c){
-        if (a != 0L)
+        if (a != null)
             aLongSet.add(a);
-        if (b != 0L)
+        if (b != null)
             bLongSet.add(b);
-        if (c != 0L)
+        if (c != null)
             cLongSet.add(c);
     }
 
@@ -44,11 +44,11 @@ public class TripleLongHashSet {
         Long a = tripleLong.getA();
         Long b = tripleLong.getB();
         Long c = tripleLong.getC();
-        if (a != 0L)
+        if (a != null)
             aLongSet.add(a);
-        if (b != 0L)
+        if (b != null)
             bLongSet.add(b);
-        if (c != 0L)
+        if (c != null)
             cLongSet.add(c);
     }
 
@@ -70,15 +70,21 @@ public class TripleLongHashSet {
     }
 
     public boolean containsByA(Long a){
-        return aLongSet.contains(a);
+        if (a != null)
+            return aLongSet.contains(a);
+        return false;
     }
 
     public boolean containsByB(Long b){
-        return bLongSet.contains(b);
+        if (b != null)
+            return bLongSet.contains(b);
+        return false;
     }
 
     public boolean containsByC(Long c){
-        return cLongSet.contains(c);
+        if (c != null)
+            return cLongSet.contains(c);
+        return false;
     }
 
     public boolean remove(TripleLong tripleLong){

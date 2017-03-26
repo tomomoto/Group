@@ -31,11 +31,13 @@ public class Processor {
 
     public void add(TripleLong tripleLong){
         if (!uniqueElementsGroup.isUnique(tripleLong)){
-            //Трипллонг неуникален для группы уникальных элементов.
-            //Сформировать группу и добавить (при необходимости, смерживая группы на ходу)
-            //в список сгруппированных уникальных элементов.
-            Group removed = uniqueElementsGroup.getGroupAndRemove(tripleLong);
-            groupedUniqueElements.checkAndAddGroup(removed);
+            if (!uniqueElementsGroup.isAlreadyContains(tripleLong)) {
+                //Трипллонг неуникален для группы уникальных элементов и не содержится в ней.
+                //Сформировать группу и добавить (при необходимости, смерживая группы на ходу)
+                //в список сгруппированных уникальных элементов.
+                Group removed = uniqueElementsGroup.getGroupAndRemove(tripleLong);
+                groupedUniqueElements.checkAndAddGroup(removed);
+            }
         }
         else
         {

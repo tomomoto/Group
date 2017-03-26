@@ -26,17 +26,17 @@ public class TripleLongArrayList {
     }
 
     public boolean add(TripleLong tripleLong){
-        boolean add = aLongArray.add(tripleLong.getA());
-        boolean add1 = bLongArray.add(tripleLong.getB());
-        boolean add2 = cLongArray.add(tripleLong.getC());
-        return (add || add1 || add2);
+        boolean addA = aLongArray.add(tripleLong.getA());
+        boolean addB = bLongArray.add(tripleLong.getB());
+        boolean addC = cLongArray.add(tripleLong.getC());
+        return (addA || addB || addC);
     }
 
     public boolean add(TripleLongArrayList tripleLongArrayList){
-        boolean add = aLongArray.addAll(tripleLongArrayList.aLongArray);
-        boolean add1 = bLongArray.addAll(tripleLongArrayList.bLongArray);
-        boolean add2 = cLongArray.addAll(tripleLongArrayList.cLongArray);
-        return (add || add1 || add2);
+        boolean addA = aLongArray.addAll(tripleLongArrayList.aLongArray);
+        boolean addB = bLongArray.addAll(tripleLongArrayList.bLongArray);
+        boolean addC = cLongArray.addAll(tripleLongArrayList.cLongArray);
+        return (addA || addB || addC);
     }
 
     public void remove(int index){

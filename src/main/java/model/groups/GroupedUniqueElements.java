@@ -11,7 +11,6 @@ import java.util.ArrayList;
 public class GroupedUniqueElements {
 
     private ArrayList<Group> groups;
-
     private TripleLongHashSet tripleLongHashSet;
 
     public GroupedUniqueElements() {
@@ -33,19 +32,18 @@ public class GroupedUniqueElements {
         return true;
     }
 
-    public boolean checkAndAddGroup(Group group) {
+    public void checkAndAddGroup(Group group) {
         //Проверить наличие группы в списках групп на пересечение множеств
         if (groups.size() == 0 || !tripleLongHashSet.isRetain(group.getTripleLongHashSet()))
         {
             //Группа уникальна для списков. Добавить группу во списки
             //listOfGroupedElements.AddGroup(removed);
-            tripleLongHashSet.merge(group.getTripleLongHashSet());
-            return groups.add(group);
+            tripleLongHashSet.add(group.getTripleLongHashSet());
+            groups.add(group);
         }
         else {
             //Группа неуникальна для списков. Мержить группы по мере поиска
             merge(group);
-            return true;
         }
     }
 
@@ -61,7 +59,6 @@ public class GroupedUniqueElements {
                     listsAlreadyMerged=true;
                 }
                 if (mergingIndexList.size() == 2) {
-                    //System.out.println("Merging triplelong");
                     groups.get(mergingIndexList.get(0)).add(groups.get(mergingIndexList.get(1)));
                     mergingIndexList.remove(1);
                     groups.remove(i - removedGroups);
@@ -83,7 +80,6 @@ public class GroupedUniqueElements {
                     listsAlreadyMerged=true;
                 }
                 if (mergingIndexList.size() == 2) {
-                    //System.out.println("Merging groups");
                     groups.get(mergingIndexList.get(0)).add(groups.get(mergingIndexList.get(1)));
                     mergingIndexList.remove(1);
                     groups.remove(i - removedGroups);
