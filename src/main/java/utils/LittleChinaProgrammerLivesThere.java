@@ -7,8 +7,7 @@ import model.groups.GroupedUniqueElements;
 import process.Processor;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.*;
 
 /**
  * Created by Tom on 26.03.2017.
@@ -18,37 +17,54 @@ public class LittleChinaProgrammerLivesThere {
     public static void wakeUpAndWork() {
         System.out.println("Starting parsing and processing...");
         long start = System.currentTimeMillis();
-        Processor processor = getTunedProcessor();
+        TreeMap<Integer,String> hashMapInvalidStrings = new TreeMap<>();
+        Processor processor = getTunedProcessor(hashMapInvalidStrings);
         long finish = System.currentTimeMillis();
         float timeConsumedSec = (finish - start)/1000;
         System.out.println("Parsing and process execution time: " + timeConsumedSec + " seconds");
         saveToFile(processor);
+        printStatistics(hashMapInvalidStrings);
+
     }
 
-    private static Processor getTunedProcessor() {
+    private static void printStatistics(TreeMap<Integer, String> mapInvalidStrings) {
+        System.out.println("------------------------------------------------------------");
+        System.out.println("Invalid string statistic with given format [index] = string");
+        printMap(mapInvalidStrings);
+        System.out.println("------------------------------------------------------------");
+    }
+
+    public static void printMap(Map mp) {
+        Iterator it = mp.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry pair = (Map.Entry)it.next();
+            System.out.println("["+pair.getKey()+"]" + " = " + pair.getValue());
+            it.remove();
+        }
+    }
+
+    private static Processor getTunedProcessor(Map<Integer,String> mapInvalidStrings) {
         Processor processor = new Processor();
         BufferedReader br = getBufferedReader();
-        parsing(processor, br);
+        parsing(processor, br,mapInvalidStrings);
         bufferCloser(br);
         Collections.sort(processor.getGroupedUniqueElements().getGroups(),
                 (o1, o2) -> o2.getTripleLongArrayList().size() - o1.getTripleLongArrayList().size());
         return processor;
     }
 
-    private static void parsing(Processor processor, BufferedReader br) {
+    private static void parsing(Processor processor, BufferedReader br, Map<Integer,String> mapInvalidStrings) {
         String line;
-        //int i = 1;
+        int i = 1;
         try {
             while ((line = br.readLine()) != null) {
                 try {
                     TripleLong parsedLongs = SmallParser.parse(line);
                     processor.add(parsedLongs);
+                } catch (InvalidStringException e) {
+                    mapInvalidStrings.put(i,line);
                 }
-                catch (InvalidStringException e) {
-                    //e.printStackTrace();
-                    //System.out.println("Invalid string index: "+i);
-                }
-                //i++;
+                i++;
             }
         } catch (IOException e) {
             e.printStackTrace();

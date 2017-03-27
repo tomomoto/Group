@@ -21,6 +21,9 @@ public class SmallParser {
         int count = StringUtils.countMatches(line, ";");
         List<String> items = addStrings(line, count);
         Long a=null,b=null,c=null;
+        if (items.size() == 0){
+            return new TripleLong(a, b, c);
+        }
         if (items.size() == 3) {
             String s1 = items.get(0);
             String s2 = items.get(1);
